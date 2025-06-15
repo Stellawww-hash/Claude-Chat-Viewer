@@ -1233,7 +1233,9 @@ function renderChat(){
       const holder=document.createElement('div');
       holder.className='img-wrap';
       const img=document.createElement('img');
-      img.src=src; img.className='upload';
+      img.src=src; 
+      img.className='upload';
+      img.referrerPolicy = 'no-referrer';
       
       // 添加点击展开功能
       img.onclick = (e) => {
