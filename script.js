@@ -423,11 +423,30 @@ function loadJsonStreaming(file) {
   parser.node('![*]', (conv) => {
     if (conv && conv.name && conv.name.trim()) {
       conversations.push(conv);
-      // 按更新时间排序，越新越靠前
       conversations.sort((a, b) => lastMillis(b) - lastMillis(a));
       renderConvList();
     }
-    // 不掉 oboe.drop，保留对象供后续点击加载
+  });
+
+  // 解析完毕回调；用于处理根即单个对话对象的情况
+  parser.done((root) => {
+    if (conversations.length === 0) {
+      // root 可能是单对象或对象数组
+      const arr = Array.isArray(root) ? root : [root];
+      arr.forEach(conv => {
+        if (conv && conv.name && conv.name.trim()) {
+          conversations.push(conv);
+        }
+      });
+      conversations.sort((a, b) => lastMillis(b) - lastMillis(a));
+    }
+
+    // 若解析完成仍无数据，则显示提示
+    if (conversations.length === 0) {
+      convList.innerHTML = '<div style="padding:20px;text-align:center;color:#64748b">⚠️ 未检测到有效会话</div>';
+    } else {
+      renderConvList();
+    }
   });
 
   parser.fail((err) => {
