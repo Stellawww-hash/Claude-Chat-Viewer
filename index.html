@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Chat Viewer</title>
+<link rel="stylesheet" href="style.css?v=2025011402">
+</head>
+<body>
+
+<!-- 移动端顶部栏 -->
+<div id="mobile-header" class="mobile-header" style="display:none">
+  <button id="sidebar-toggle" class="sidebar-toggle">☰ 会话列表</button>
+  <div class="mobile-title">Claude Chat Viewer</div>
+</div>
+
+<!-- 移动端遮罩层 -->
+<div id="mobile-overlay" class="mobile-overlay"></div>
+
+<!-- 浮动侧边栏按钮 -->
+<button id="floating-sidebar-btn" class="floating-sidebar-btn">☰</button>
+
+<!-- 侧边栏 -->
+<aside id="sidebar">
+  <div class="file-input-wrapper" onclick="document.getElementById('file-input').click()">
+    <input id="file-input" type="file" accept="application/json">
+    <div class="file-input-label">📁 选择 Claude 导出 JSON</div>
+    <div class="file-input-text">点击上传或拖拽文件到这里</div>
+  </div>
+
+  <!-- 搜索框 -->
+  <div class="search-container">
+    <div class="search-input-wrapper">
+      <input type="text" id="search-input" class="search-input" placeholder="搜索对话框或聊天内容...">
+      <button id="search-btn" class="search-btn" title="搜索">🔍</button>
+    </div>
+    <div class="search-navigation" id="search-navigation" style="display:none">
+      <button class="search-nav-btn" id="search-prev" title="上一个结果">↑</button>
+      <div class="search-counter" id="search-counter">
+        <input type="number" id="search-index-input" min="1" class="search-index-input" value="0">
+        <span id="count">/</span>
+        <input type="number" id="search-total" class="search-total-input" value="0" readonly>
+      </div>
+      <button class="search-nav-btn" id="search-next" title="下一个结果">↓</button>
+    </div>
+    <div class="search-tip">按回车键或点击🔍搜索，ESC 清空</div>
+  </div>
+
+  <nav id="conv-list"></nav>
+
+  <div class="export-area" id="export-area" style="display:none">
+    <button class="export-btn" id="export-all">⬇️ 导出整包 JSON</button>
+    <button class="export-btn" id="export-one">⬇️ 导出当前会话 JSON</button>
+  </div>
+</aside>
+
+<!-- 主面板 -->
+<main>
+  <div id="chat" class="chat" style="justify-content:center;color:#94a3b8">
+    <div style="text-align:center;font-size:16px;color:#64748b">
+      <div style="font-size:48px;margin-bottom:16px">💬</div>
+      <div>请先上传 JSON 文件并选择会话</div>
+    </div>
+  </div>
+</main>
+
+<!-- 依赖库 -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/oboe@2.1.5/dist/oboe-browser.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
